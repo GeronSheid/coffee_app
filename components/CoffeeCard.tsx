@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
 import Image from 'next/image'
 
@@ -13,6 +13,14 @@ export interface ICoffeeCard {
     descriptors: string[]
 }
 
+const processingTypeMap: Record<string, string> = {
+    NATURAL: 'Натуральная',
+    WASHED: 'Мытая',
+    HONEY: 'Хани',
+    ANAEROBIC: 'Анаэробная',
+    WETHULLED: 'Вет Халл',
+};
+
 export const CoffeeCard: React.FC<ICoffeeCard> = ({
     coffee_title,
     coffee_description,
@@ -20,6 +28,7 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
     descriptors,
     image_src
 }) => {
+    useEffect(() => {console.log(processing_type)})
     return (
         <Card className='w-[100%]'>
             <CardHeader>
@@ -40,7 +49,7 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
                 <CardDescription>
                     {coffee_description}
                 </CardDescription>
-                <span>{processing_type}</span>
+                <span>{processingTypeMap[processing_type]}</span>
                 <ul>
                     {descriptors.map(descriptor => 
                         <li key={descriptor}>
