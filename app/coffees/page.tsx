@@ -1,3 +1,4 @@
+'use client'
 import { Container } from '@/components/index'
 import { CoffeeCard, type ICoffeeCard } from '@/components/CoffeeCard'
 import React from 'react'
@@ -8,11 +9,6 @@ const mockData: ICoffeeCard[] = [
         description: 'Бразилия под эспрессо',
         processing_type: 'Мытая',
         descriptors: ['Орех', 'Шоколад', 'Корица'],
-        taste_profile: {
-            sweetness: 6,
-            sourness: 8,
-            bitterness: 3
-        },
         image_src: ''
     }
 ]
@@ -31,7 +27,6 @@ const page = () => {
                                 description={coffee.description}
                                 processing_type={coffee.processing_type}
                                 descriptors={coffee.descriptors}
-                                taste_profile={coffee.taste_profile}
                                 image_src={coffee.image_src}
                             />
                         ))}

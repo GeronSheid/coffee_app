@@ -7,14 +7,9 @@ import Image from 'next/image'
 export interface ICoffeeCard {
     title: string
     description: string
-    image_src: string
+    image_src?: string
     processing_type: 'Натуральная' | 'Мытая' | 'Хани' | 'Анаэробная' | 'Вет халл'
     descriptors: string[]
-    taste_profile: {
-        sweetness: number,
-        bitterness: number,
-        sourness: number
-    }
 }
 
 export const CoffeeCard: React.FC<ICoffeeCard> = ({
@@ -22,7 +17,6 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
     description,
     processing_type,
     descriptors,
-    taste_profile,
     image_src
 }) => {
     return (
@@ -31,12 +25,17 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
                 <CardTitle>{title}</CardTitle>
             </CardHeader>
             <CardContent>
+                {image_src 
+                ?
                 <Image 
                     width={150} 
                     height={150} 
                     src={image_src} 
                     alt={title}
                 />
+                :
+                null
+                }
                 <CardDescription>
                     {description}
                 </CardDescription>
@@ -45,14 +44,6 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
                     {descriptors.map(descriptor => 
                         <li key={descriptor}>
                             {descriptor}
-                        </li>
-                    )}
-                </ul>
-                <ul>
-                    {Object.entries(taste_profile).map(taste => 
-                        <li key={taste[0]}>
-                            <span>{taste[0]}</span>
-                            <span>{taste[1]}</span>
                         </li>
                     )}
                 </ul>
