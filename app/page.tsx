@@ -1,4 +1,5 @@
-import { Container } from "@/components/ui";
+import { Container } from "@/components";
+
 
 export default function Home() {
   return (
