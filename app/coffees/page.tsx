@@ -4,9 +4,10 @@ import React, { useEffect } from 'react'
 import { CoffeCards } from '@/components/CoffeCards'
 
 const mockData: ICoffeeCard[] = [
-    {
-        title: 'Под эспрессо',
-        description: 'Бразилия под эспрессо',
+    {   
+        id: 1,
+        coffee_title: 'Под эспрессо',
+        coffee_description: 'Бразилия под эспрессо',
         processing_type: 'Мытая',
         descriptors: ['Орех', 'Шоколад', 'Корица'],
         image_src: ''
@@ -20,18 +21,6 @@ const page = () => {
                 <Container>
                     <h1 className='text-xl font-extrabold'>Список кофейных зерен и блендов</h1>
                     <CoffeCards/>
-                    <div className='grid grid-cols-3'>
-                        {mockData.map(coffee => (
-                            <CoffeeCard 
-                                key={coffee.title}
-                                title={coffee.title}
-                                description={coffee.description}
-                                processing_type={coffee.processing_type}
-                                descriptors={coffee.descriptors}
-                                image_src={coffee.image_src}
-                            />
-                        ))}
-                    </div>
                 </Container>
             </section>
         </>

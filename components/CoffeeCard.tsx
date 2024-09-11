@@ -5,16 +5,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Image from 'next/image'
 
 export interface ICoffeeCard {
-    title: string
-    description: string
+    id: number
+    coffee_title: string
+    coffee_description: string
     image_src?: string
-    processing_type: 'Натуральная' | 'Мытая' | 'Хани' | 'Анаэробная' | 'Вет халл'
+    processing_type: string
     descriptors: string[]
 }
 
 export const CoffeeCard: React.FC<ICoffeeCard> = ({
-    title,
-    description,
+    coffee_title,
+    coffee_description,
     processing_type,
     descriptors,
     image_src
@@ -22,7 +23,7 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
     return (
         <Card className='w-[100%]'>
             <CardHeader>
-                <CardTitle>{title}</CardTitle>
+                <CardTitle>{coffee_title}</CardTitle>
             </CardHeader>
             <CardContent>
                 {image_src 
@@ -31,13 +32,13 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
                     width={150} 
                     height={150} 
                     src={image_src} 
-                    alt={title}
+                    alt={coffee_title}
                 />
                 :
                 null
                 }
                 <CardDescription>
-                    {description}
+                    {coffee_description}
                 </CardDescription>
                 <span>{processing_type}</span>
                 <ul>
