@@ -1,7 +1,7 @@
-'use client'
 import { Container } from '@/components/index'
 import { CoffeeCard, type ICoffeeCard } from '@/components/CoffeeCard'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { CoffeCards } from '@/components/CoffeCards'
 
 const mockData: ICoffeeCard[] = [
     {
@@ -19,6 +19,7 @@ const page = () => {
             <section>
                 <Container>
                     <h1 className='text-xl font-extrabold'>Список кофейных зерен и блендов</h1>
+                    <CoffeCards/>
                     <div className='grid grid-cols-3'>
                         {mockData.map(coffee => (
                             <CoffeeCard 
