@@ -30,7 +30,7 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
 }) => {
     useEffect(() => {console.log(processing_type)})
     return (
-        <Card className='w-[100%]'>
+        <Card className='w-[100%] max-h-80'>
             <CardHeader>
                 <CardTitle>{coffee_title}</CardTitle>
             </CardHeader>
@@ -46,17 +46,24 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
                 :
                 null
                 }
-                <CardDescription>
+                <CardDescription className='flex flex-col gap-3'>
                     {coffee_description}
+                    <div className='flex gap-2 items-center'>
+                        <b className='text-stone-950'>Способ обработки:</b>
+                        <span>{processingTypeMap[processing_type]}</span>
+                    </div>
+                    <div className='flex gap-2 items-center'>
+                        <b className='text-stone-950'>Дескрипторы:</b>
+                        <ul className='flex gap-2 text-sm'>
+                            {descriptors.map(descriptor => 
+                                <li key={descriptor}>
+                                    {descriptor}
+                                </li>
+                            )}
+                        </ul>
+                    </div>
                 </CardDescription>
-                <span>{processingTypeMap[processing_type]}</span>
-                <ul>
-                    {descriptors.map(descriptor => 
-                        <li key={descriptor}>
-                            {descriptor}
-                        </li>
-                    )}
-                </ul>
+                
             </CardContent>
             <CardFooter>
                     Тут будет кнопка!

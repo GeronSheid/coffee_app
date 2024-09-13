@@ -1,25 +1,44 @@
 'use client'
-import { GET } from '@/app/api/coffees/route'
 import React, { useEffect, useState } from 'react'
 import { CoffeeCard, ICoffeeCard } from './CoffeeCard'
+import { getCoffees } from '@/api/coffees'
+import { Skeleton } from './ui/skeleton'
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from './ui/pagination'
 
 
 
 export const CoffeCards = () => {
     const [coffees, setCoffees] = useState<ICoffeeCard[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
-        const getUsers = async () => {
-            const res = await fetch('/api/coffees')
-            const data = await res.json()
-            console.log(data)
-            setCoffees(data)
+        const loadCoffees = async () => {
+            setIsLoading(true)
+            try {
+                const coffeeData = await getCoffees(1, 10)
+                setCoffees(coffeeData)
+            } catch (e) {
+                console.log('Произошла ошибка', e)
+            } finally {
+                setIsLoading(false)
+            }
         }
-        getUsers()
+
+        loadCoffees()
     }, [])
+
     return (
-        <div className='grid grid-cols-3'>
-            {coffees.map(coffee => (
+        <div className='flex flex-col h-[100%]'>
+            <div className='grid grid-cols-3 gap-6 flex-auto'>
+                {
+                    isLoading 
+                        ?
+                    <>
+                        {Array.from({length: 6}).map((_, index) => <Skeleton key={index} className='w-[100%] min-h-60'/>)}
+                    </>
+                        :
+                    <>
+                        {coffees.map(coffee => (
                             <CoffeeCard
                                 key={coffee.id}
                                 id={coffee.id}
@@ -29,6 +48,22 @@ export const CoffeCards = () => {
                                 processing_type={coffee.processing_type}
                             />
                         ))}
+                    </>
+                }
+            </div>
+            <Pagination>
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious href="#" />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink href="#">1</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationNext href="#" />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
         </div>
     )
 }
