@@ -4,10 +4,13 @@ import { CoffeeCard, ICoffeeCard } from './CoffeeCard'
 import { getCoffees } from '@/api/coffees'
 import { Skeleton } from './ui/skeleton'
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from './ui/pagination'
+import { DynamicPagination } from './DynamicPagination'
 
 
 
 export const CoffeCards = () => {
+    const [page, setPage] = useState<number>(1)
+    const [pages, setPages] = useState(0)
     const [coffees, setCoffees] = useState<ICoffeeCard[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -15,17 +18,18 @@ export const CoffeCards = () => {
         const loadCoffees = async () => {
             setIsLoading(true)
             try {
-                const coffeeData = await getCoffees(1, 10)
-                setCoffees(coffeeData)
+                const coffeeData = await getCoffees(page, 1)
+                setCoffees(coffeeData.data)
+                setPages(coffeeData.pages.total)
             } catch (e) {
                 console.log('Произошла ошибка', e)
             } finally {
                 setIsLoading(false)
             }
         }
-
+        console.log(page)
         loadCoffees()
-    }, [])
+    }, [page])
 
     return (
         <div className='flex flex-col h-[100%]'>
@@ -51,19 +55,11 @@ export const CoffeCards = () => {
                     </>
                 }
             </div>
-            <Pagination>
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">1</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext href="#" />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+            <DynamicPagination
+                currentPage={page}
+                totalPages={pages}
+                setPage={setPage}
+            />
         </div>
     )
 }

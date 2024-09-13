@@ -4,9 +4,10 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
-    const page = parseInt(searchParams.get('offset') || '1', 10)
+    const page = parseInt(searchParams.get('page') || '1', 10)
     const limit = parseInt(searchParams.get('limit') || '10', 10)
     const offset = (page - 1) * limit
+    console.log(offset)
     if(id){
         const coffee = await prisma.coffee.findUnique({
             where: {
@@ -39,8 +40,10 @@ export async function GET(request: Request) {
     })
     return NextResponse.json({
         data: coffees,
-        totalPages: Math.ceil(totalCoffes / limit),
-        page: page,
+        pages: {
+            total: Math.ceil(totalCoffes / limit),
+            current: page,
+        },
         limit: limit,
         totalCoffes: totalCoffes,
 
