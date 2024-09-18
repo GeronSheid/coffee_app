@@ -9,7 +9,7 @@ const page = () => {
             <section>
                 <Container>
                     <h1 className='text-xl font-extrabold mb-8'>Список кофейных зерен и блендов</h1>
-                    <ModalWindow/>
+                    {/* <ModalWindow/> */}
                     <CoffeCards/>
                 </Container>
             </section>
