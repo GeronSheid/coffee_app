@@ -1,6 +1,12 @@
 import { prisma } from "@/prisma/prisma-client";
 import { NextResponse } from "next/server";
 
+const headers = new Headers({
+    'Access-Control-Allow-Origin': 'https://coffee-app-mk5d.vercel.app',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+});
+
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
@@ -21,9 +27,9 @@ export async function GET(request: Request) {
             } 
         })
         if(!coffee) {
-            return NextResponse.json({error: 'coffee not found'}, {status: 404});
+            return NextResponse.json({error: 'coffee not found'}, {status: 404, headers} );
         }
-        return NextResponse.json(coffee)
+        return NextResponse.json(coffee, { headers })
     }
     const totalCoffes = await prisma.coffee.count()
     const coffees = await prisma.coffee.findMany({
@@ -61,8 +67,8 @@ export async function POST(request: Request) {
                 processing_type
             },
         })
-        return NextResponse.json({message: 'Кофе добавлен', coffee: newCoffee})
+        return NextResponse.json({message: 'Кофе добавлен', coffee: newCoffee}, { headers})
     } catch (e) {
-        return NextResponse.json({message: 'Ошибка при добавлении кофе', error: e}, {status: 500})
+        return NextResponse.json({message: 'Ошибка при добавлении кофе', error: e}, {status: 500, headers})
     }
 }
