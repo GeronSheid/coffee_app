@@ -1,12 +1,15 @@
 import { Container } from '@/components/index'
 import { CoffeCards } from '@/components/CoffeCards'
+import { ModalWindow } from '@/components/ModalWindow'
 
 const page = () => {
+
     return (
         <>
-            <section className='h-[100%]'>
+            <section>
                 <Container>
                     <h1 className='text-xl font-extrabold mb-8'>Список кофейных зерен и блендов</h1>
+                    <ModalWindow/>
                     <CoffeCards/>
                 </Container>
             </section>

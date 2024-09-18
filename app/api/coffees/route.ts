@@ -7,7 +7,6 @@ export async function GET(request: Request) {
     const page = parseInt(searchParams.get('page') || '1', 10)
     const limit = parseInt(searchParams.get('limit') || '10', 10)
     const offset = (page - 1) * limit
-    console.log(offset)
     if(id){
         const coffee = await prisma.coffee.findUnique({
             where: {
@@ -51,5 +50,19 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-    const body = await request.json();
+    try {   
+        const { coffee_title, coffee_description, descriptors, processing_type} = await request.json()
+        console.log(coffee_title)
+        const newCoffee = await prisma.coffee.create({
+            data: {
+                coffee_title,
+                coffee_description,
+                descriptors,
+                processing_type
+            },
+        })
+        return NextResponse.json({message: 'Кофе добавлен', coffee: newCoffee})
+    } catch (e) {
+        return NextResponse.json({message: 'Ошибка при добавлении кофе', error: e}, {status: 500})
+    }
 }

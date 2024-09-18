@@ -5,11 +5,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Image from 'next/image'
 
 export interface ICoffeeCard {
-    id: number
+    id?: number
     coffee_title: string
     coffee_description: string
     image_src?: string
-    processing_type: string
+    processing_type?: string
     descriptors: string[]
 }
 
@@ -50,7 +50,7 @@ export const CoffeeCard: React.FC<ICoffeeCard> = ({
                     {coffee_description}
                     <div className='flex gap-2 items-center'>
                         <b className='text-stone-950'>Способ обработки:</b>
-                        <span>{processingTypeMap[processing_type]}</span>
+                        <span>{processing_type ? processingTypeMap[processing_type] : 'Натуральная'}</span>
                     </div>
                     <div className='flex gap-2 items-center'>
                         <b className='text-stone-950'>Дескрипторы:</b>

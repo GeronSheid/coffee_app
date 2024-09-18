@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { CoffeeCard, ICoffeeCard } from './CoffeeCard'
 import { getCoffees } from '@/api/coffees'
 import { Skeleton } from './ui/skeleton'
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from './ui/pagination'
 import { DynamicPagination } from './DynamicPagination'
+import { TopBar } from './TopBar'
 
 
 
@@ -18,7 +18,7 @@ export const CoffeCards = () => {
         const loadCoffees = async () => {
             setIsLoading(true)
             try {
-                const coffeeData = await getCoffees(page, 1)
+                const coffeeData = await getCoffees(page)
                 setCoffees(coffeeData.data)
                 setPages(coffeeData.pages.total)
             } catch (e) {
@@ -27,12 +27,16 @@ export const CoffeCards = () => {
                 setIsLoading(false)
             }
         }
-        console.log(page)
         loadCoffees()
     }, [page])
 
+    
+
     return (
-        <div className='flex flex-col h-[100%]'>
+        <div className='flex flex-col min-h-[80vh]'>
+            <TopBar>
+                {'Ни-Ху-Я'}
+            </TopBar>
             <div className='grid grid-cols-3 gap-6 flex-auto'>
                 {
                     isLoading 
@@ -55,11 +59,19 @@ export const CoffeCards = () => {
                     </>
                 }
             </div>
-            <DynamicPagination
-                currentPage={page}
-                totalPages={pages}
-                setPage={setPage}
-            />
+            <>
+                {isLoading
+                    ?
+                    <Skeleton className='w-8 h-5' />
+                    :
+                    <DynamicPagination
+                        currentPage={page}
+                        totalPages={pages}
+                        setPage={setPage}
+                    />
+                }
+            </>
+            
         </div>
     )
 }

@@ -14,9 +14,9 @@ const mockList = [
 
 export const Header = () => {
     return (
-        <header className='h-20 flex items-center'>
+        <header className='flex items-center border-solid border-b-white border-b mb-6'>
             <Container>
-                <div className='flex items-center gap-6'>
+                <div className='flex items-center gap-6 h-20'>
                     <Link href={'#'}>
                         Coffee App
                     </Link>

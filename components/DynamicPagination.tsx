@@ -31,7 +31,7 @@ export const DynamicPagination: React.FC<IPagination> = ({currentPage, totalPage
                 </PaginationItem>
                 {Array.from({length: totalPages}).map((_, index) => (
                     <PaginationItem key={index}>
-                        <PaginationLink isActive={index === currentPage - 1} onClick={() => setPage(index)} >{index + 1}</PaginationLink>
+                        <PaginationLink isActive={index === currentPage - 1} onClick={() => setPage(index+1)} >{index + 1}</PaginationLink>
                     </PaginationItem>
                 ))}
                 <PaginationItem>
