@@ -1,6 +1,5 @@
 import { Container } from '@/components/index'
 import { CoffeCards } from '@/components/CoffeCards'
-import { ModalWindow } from '@/components/ModalWindow'
 
 const page = () => {
 

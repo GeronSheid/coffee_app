@@ -1,6 +1,5 @@
 import { ICoffeeCard } from "@/components/CoffeeCard";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const apiClient = require('./axios');
+import apiClient from "./axios";
 
 export const getCoffees = async (page: number = 1, limit: number = 10) => {
     try {
