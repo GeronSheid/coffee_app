@@ -15,9 +15,9 @@ export const getCoffees = async (page: number = 1, limit: number = 10) => {
 
 export const getCoffeesNext = async (page: number = 1, limit: number = 10) => {
     const url = `https://coffee-app-mk5d.vercel.app/api/coffees?page=${page}&limit=${limit}`
-    const response = fetch(url, {method: 'GET'})
+    fetch(url, {method: 'GET'})
         .then(res => {
-            console.log(res)
+            console.log('without axios',res.json())
         })
 }
 
