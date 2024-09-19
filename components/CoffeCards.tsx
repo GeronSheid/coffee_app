@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { CoffeeCard, ICoffeeCard } from './CoffeeCard'
-import { getCoffees } from '@/api/coffees'
+import { getCoffees, getCoffeesNext } from '@/api/coffees'
 import { Skeleton } from './ui/skeleton'
 import { DynamicPagination } from './DynamicPagination'
 import { TopBar } from './TopBar'
@@ -17,6 +17,7 @@ export const CoffeCards = () => {
     const [show, setShow] = useState<boolean>(false)
 
     useEffect(() => {
+        getCoffeesNext()
         const loadCoffees = async () => {
             setIsLoading(true)
             try {

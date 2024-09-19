@@ -2,7 +2,7 @@ import { prisma } from "@/prisma/prisma-client";
 import { NextResponse } from "next/server";
 
 const headers = new Headers({
-    'Access-Control-Allow-Origin': 'https://coffee-app-mk5d.vercel.app',
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
 });
