@@ -1,5 +1,5 @@
 import { ICoffeeCard } from "@/components/CoffeeCard";
-import { apiClient } from "@/api/axios.ts";
+import { apiClient } from "./configAxios";
 
 export const getCoffees = async (page: number = 1, limit: number = 10) => {
     try {
