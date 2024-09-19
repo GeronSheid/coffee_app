@@ -6,6 +6,7 @@ export const getCoffees = async (page: number = 1, limit: number = 10) => {
         const response = await apiClient.get(`/coffees`, {
             params: {page, limit}
         })
+        console.log(response)
         return response.data
     } catch (e) {
         console.log('Ошибка!', e)
