@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { CoffeeCard, ICoffeeCard } from './CoffeeCard'
-import { getCoffees, getCoffeesNext } from '@/api/coffees'
+import { getCoffees, getCoffeesNext } from '@/api/coffeesAPI'
 import { Skeleton } from './ui/skeleton'
 import { DynamicPagination } from './DynamicPagination'
 import { TopBar } from './TopBar'
