@@ -6,8 +6,8 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { addCoffee } from '@/api/coffees'
 import { ICoffeeCard } from './CoffeeCard'
+import { addCoffee } from '@/api/coffeesAPI'
 
 const coffeeFormSchema = z.object({
     coffee_title: z.string().min(5, { message: 'Короткое слишком название' }).max(30),
