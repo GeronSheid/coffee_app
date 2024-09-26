@@ -58,7 +58,6 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
     try {   
         const { coffee_title, coffee_description, descriptors, processing_type} = await request.json()
-        console.log(coffee_title)
         const newCoffee = await prisma.coffee.create({
             data: {
                 coffee_title,
