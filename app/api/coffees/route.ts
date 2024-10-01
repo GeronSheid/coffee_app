@@ -1,12 +1,6 @@
 import { prisma } from "@/prisma/prisma-client";
 import { NextResponse } from "next/server";
 
-const headers = new Headers({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-});
-
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
@@ -27,9 +21,9 @@ export async function GET(request: Request) {
             } 
         })
         if(!coffee) {
-            return NextResponse.json({error: 'coffee not found'}, {status: 404, headers} );
+            return NextResponse.json({error: 'coffee not found'}, {status: 404} );
         }
-        return NextResponse.json(coffee, { headers })
+        return NextResponse.json(coffee)
     }
     const totalCoffes = await prisma.coffee.count()
     const coffees = await prisma.coffee.findMany({
@@ -58,7 +52,6 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
     try {   
         const { coffee_title, coffee_description, descriptors, processing_type} = await request.json()
-        console.log(coffee_title)
         const newCoffee = await prisma.coffee.create({
             data: {
                 coffee_title,
@@ -67,8 +60,8 @@ export async function POST(request: Request) {
                 processing_type
             },
         })
-        return NextResponse.json({message: 'Кофе добавлен', coffee: newCoffee}, { headers})
+        return NextResponse.json({message: 'Кофе добавлен', coffee: newCoffee})
     } catch (e) {
-        return NextResponse.json({message: 'Ошибка при добавлении кофе', error: e}, {status: 500, headers})
+        return NextResponse.json({message: 'Ошибка при добавлении кофе', error: e}, {status: 500})
     }
 }
