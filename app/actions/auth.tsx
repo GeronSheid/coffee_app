@@ -11,7 +11,7 @@ export async function SignInHandler(data: {
     email: string;
     password: string;
 }) {
-    const salt = await bcrypt.genSalt(10)
+    const salt = 10;
     const hashPassword = await bcrypt.hash(data.password, salt);
     const newUser = await prisma.user.create({
         data: {

@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
         console.log(isMatch)
         console.log(user.password)
         if (!isMatch) {
-            return NextResponse.json({ message: 'Неверный пароль', data: {isMatch, user} }, { status: 401 })
+            return NextResponse.json({ message: 'Неверный пароль', data: {isMatch, user, password} }, { status: 401 })
         }
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
