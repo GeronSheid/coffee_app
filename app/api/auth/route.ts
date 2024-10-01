@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
         const refreshToken = generateRefreshToken(user);
         const response = NextResponse.json({ message: 'Логин успешен', data: { accesToken: accessToken } })
         setAuthCookie(request, response, refreshToken);
+        return response;
     } catch (error) {
         console.error('Ошибка при аутентификации:', error);
         return NextResponse.json({ error: 'Произошла ошибка при аутентификации' }, { status: 500 });
