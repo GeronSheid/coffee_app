@@ -13,8 +13,10 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: 'Пользовательн не найден' }, { status: 404 })
         }
         const isMatch = await bcrypt.compare(password, user.password)
+        console.log(isMatch)
+        console.log(user.password)
         if (!isMatch) {
-            return NextResponse.json({ message: 'Неверный пароль' }, { status: 401 })
+            return NextResponse.json({ message: 'Неверный пароль', data: {isMatch, user} }, { status: 401 })
         }
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
