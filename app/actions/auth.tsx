@@ -1,8 +1,10 @@
 'use server'
 
 import { prisma } from "@/prisma/prisma-client";
+
+import { setCookie } from 'cookies-next';
+import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcryptjs';
-import { generateAccessToken, generateRefreshToken } from "@/lib/jwt";
 
 export async function SignInHandler(data: {
     name: string;
@@ -24,19 +26,13 @@ export async function SignInHandler(data: {
         })
 }
 
-export async function signInHandler(data: {email: string, password: string}) {
-    const {email, password} = data;
-    const user = await prisma.user.findUnique({ where: {email: email}})
-    if(!user) {
-        throw new Error('Пользователь с этим email не обнаружен')
-    }
-    const isMatch = await bcrypt.compare(password, user.password)
-    if(!isMatch) {
-        throw new Error('Неправильный пароль')
-    }
-
-    const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
-
-    
+export const setAuthCookie = (req: NextRequest, res: NextResponse, refreshToken: string) => {
+    setCookie('refreshToken', refreshToken, {
+        req,
+        res,
+        httpOnly: true,
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/'
+    })
 }
+
