@@ -6,7 +6,7 @@ import { setCookie } from 'cookies-next';
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcryptjs';
 
-export async function SignInHandler(data: {
+export async function SignUpHandler(data: {
     name: string;
     email: string;
     password: string;

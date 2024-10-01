@@ -7,12 +7,12 @@ import { z } from 'zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import { SignInHandler } from '@/app/actions/auth'
+import { SignUpHandler } from '@/app/actions/auth'
 
-export const SignInForm = () => {
+export const RegisterForm = () => {
 
     //Создаем схему с помощью Zod
-    const SignInFormSchema = z.object({
+    const RegisterFormSchema = z.object({
         name: z
             .string()
             .min(2, { message: 'Name must be at least 2 characters long.' })
@@ -29,23 +29,22 @@ export const SignInForm = () => {
             .trim(),
     })
     //Создаем тип основываясь на схеме Zod
-    type SignInFormData = z.infer<typeof SignInFormSchema>;
+    type RegisterFormData = z.infer<typeof RegisterFormSchema>;
     //Используем React Hook Form
-    const form = useForm<SignInFormData>({
-        resolver: zodResolver(SignInFormSchema)
+    const form = useForm<RegisterFormData>({
+        resolver: zodResolver(RegisterFormSchema)
     })
     //Деструктуризируем form для удобства
     const {control, handleSubmit} = form;
     //Функция которая буде отрабатывать при отправке формы
-    const onSubmit = (data: SignInFormData) => {
-        console.log(data)
-        SignInHandler(data)
+    const onSubmit = (data: RegisterFormData) => {
+        SignUpHandler(data)
     }
 
     return (
         <div>
             <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 items-center w-[100%]'>
                 <FormField
                         control={control}
                         name='name'
